@@ -115,10 +115,6 @@ export async function getStaticProps(context) {
     }
   `;
 
-  let data;
-
-  console.log("PROD", PRODUCT_QUERY);
-
   try {
     const res = await client.query({
       query: PRODUCT_QUERY,
@@ -126,16 +122,10 @@ export async function getStaticProps(context) {
         slug: slug,
       },
     });
-    console.log("RES: ", res);
 
-    data = res.data.product;
-  } catch (error) {
-    console.log("error", error);
-  }
+    const data = res.data.product;
 
-  if (data.length > 0) {
     const mdxSource = await serialize(data[0].description);
-    console.log("MDX", mdxSource);
 
     return {
       props: {
@@ -143,13 +133,15 @@ export async function getStaticProps(context) {
         mdxSource: mdxSource,
       },
     };
-  } else {
-    return {
-      props: {
-        product: null,
-      },
-    };
+  } catch (error) {
+    console.log("error", error);
   }
+
+  return {
+    props: {
+      product: null,
+    },
+  };
 }
 
 export async function getStaticPaths() {
