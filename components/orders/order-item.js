@@ -2,7 +2,7 @@ function OrderItem(props) {
   const { email, address, city, status, amount } = props.order;
 
   return (
-    <li className="border mt-5">
+    <li className="border mt-4">
       <p>{email}</p>
       <p>{address}</p>
       <p>{city}</p>
