@@ -5,8 +5,10 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Image from "next/image";
 
 import CartContext from "../../store/cart-context";
+import logo from "../../public/logo.svg";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
@@ -75,19 +77,20 @@ function MainNavigation() {
                 </Disclosure.Button>
               </div>
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex-shrink-0 flex items-center">
-                  {/* LOGO */}
-                  <img
-                    className="block lg:hidden h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                    alt="Workflow"
-                  />
-                  <img
-                    className="hidden lg:block h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
-                    alt="Workflow"
-                  />
-                </div>
+                <Link href="/">
+                  <a className="flex-shrink-0 flex items-center">
+                    <Image
+                      src={logo}
+                      alt="logo"
+                      width="36"
+                      height="36"
+                      className="fill-current text-green-600"
+                    />
+                    <p className="text-gray-300 text-xl ml-2 font-medium">
+                      Climbing Shop
+                    </p>
+                  </a>
+                </Link>
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
                     {navigationState.map((item) => (
@@ -155,20 +158,6 @@ function MainNavigation() {
                             d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                           />
                         </svg>
-                        {/* <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-7 w-7"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="#d1d5db"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
-                        </svg> */}
                       </Menu.Button>
                     </div>
                     <Transition
