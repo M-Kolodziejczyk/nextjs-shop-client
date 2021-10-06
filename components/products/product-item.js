@@ -10,20 +10,22 @@ function ProductItem(props) {
   return (
     <Link href={pathName}>
       <a className="group">
-        <div className="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
+        <div className="w-full flex justify-center">
           <Image
             src={imageSrc}
             alt={name}
-            // className="w-full h-full object-center object-cover lg:w-full lg:h-full"
-            className="w-full h-full object-center object-cover group-hover:opacity-75"
-            // className="w-full h-full object-center object-cover"
-            width={200}
+            className="flex w-full h-full bg-auto bg-center transform transition-all group-hover:scale-110 "
+            width={300}
             height={300}
           />
         </div>
-        <h3 className="mt-4 text-sm text-gray-700">{name}</h3>
-        <h3 className="mt-4 text-sm text-gray-700">{brand}</h3>
-        <p className="mt-1 text-lg font-medium text-gray-900">
+        <h3 className="mt-2 text-sm text-center uppercase font-bold text-gray-900 transition duration-400 ease-in-out group-hover:text-gray-500  ">
+          {brand}
+        </h3>
+        <h3 className="mt-1 text-xl text-center text-gray-900 transition duration-400 ease-in-out group-hover:text-gray-500   ">
+          {name}
+        </h3>
+        <p className="mt-1 text-lg text-center font-medium text-gray-900 transition duration-400 ease-in-out group-hover:text-gray-500  ">
           {price.toFixed(2)}$
         </p>
       </a>
