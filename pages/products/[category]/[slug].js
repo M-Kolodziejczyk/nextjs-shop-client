@@ -49,20 +49,20 @@ function ProductDetailPage(props) {
 
     return (
       <section className="body-font overflow-hidden">
-        <div className="container px-5 py-24 mx-auto">
-          <div className="lg:w-4/5 mx-auto flex flex-wrap">
+        <div className="container px-5 py-16 mx-auto">
+          <div className="xl:w-4/5 mx-auto flex flex-wrap">
             <Image
               src={imageSrc}
               alt={product.name}
-              className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
+              className=" w-full lg:w-1/2  lg:h-auto h-64 object-contain object-center rounded"
               width={400}
               height={400}
             />
-            <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+            <div className="lg:w-auto w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <div className="flex flex-col">
-                <h1 className="text-gray-900 text-xl title-font mb-1">
+                <h2 className="text-gray-900 text-2xl font-bold title-font mb-1">
                   {product.brand}
-                </h1>
+                </h2>
                 <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
                   {product.name}
                 </h1>
@@ -73,18 +73,20 @@ function ProductDetailPage(props) {
               <div className="flex mt-5">
                 <button
                   onClick={addProducthandler}
-                  className="flex  text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                  className="flex text-white bg-gray-800 border-0 py-2 px-8 focus:outline-none hover:bg-gray-700 rounded"
                 >
                   Buy
                 </button>
               </div>
               {successMessage && (
-                <p className="text-green-600">{successMessage}</p>
+                <p className="text-green-600 transition">{successMessage}</p>
               )}
-              {errorMessage && <p className="text-red-600">{errorMessage}</p>}
+              {errorMessage && (
+                <p className="text-red-600 transition">{errorMessage}</p>
+              )}
             </div>
           </div>
-          <div className="lg:w-4/5 mx-auto flex flex-col mt-10">
+          <div className="xl:w-4/5 mx-auto flex flex-col mt-10">
             <MDXRemote {...props.mdxSource} components={components} />
           </div>
         </div>
