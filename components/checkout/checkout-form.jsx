@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
+import Portal from "../ui/portal";
+import Spinner from "../ui/spinner";
+import Button from "../ui/button";
+
 function CheckoutForm(props) {
   const router = useRouter();
-  const [succeeded, setSucceeded] = useState(false);
-  const [error, setError] = useState(null);
-  const [processing, setProcessing] = useState("");
-  const [disabled, setDisabled] = useState(true);
   const stripe = useStripe();
   const elements = useElements();
+  const [error, setError] = useState(null);
+  const [processing, setProcessing] = useState("");
 
   async function confrimPayment(orderId, paymentId) {
     try {
@@ -57,7 +59,6 @@ function CheckoutForm(props) {
   };
 
   const handleChange = async (event) => {
-    setDisabled(event.empty);
     setError(event.error ? event.error.message : "");
   };
 
@@ -76,9 +77,8 @@ function CheckoutForm(props) {
       setProcessing(false);
     } else {
       setError(null);
-      setProcessing(false);
-      setSucceeded(true);
       confrimPayment(props.orderId, payload.paymentIntent.id);
+      setProcessing(false);
     }
   };
 
@@ -90,29 +90,14 @@ function CheckoutForm(props) {
           options={cardStyle}
           onChange={handleChange}
         />
-        <button disabled={processing || disabled || succeeded}>
-          <span id="button-text">
-            {processing ? (
-              <div className="spinner" id="spinner"></div>
-            ) : (
-              "Pay Now"
-            )}
-          </span>
-        </button>
-        {error && (
-          <div className="card-error" role="alert">
-            {error}
-          </div>
-        )}
-        <p className={succeeded ? "result-message" : "result-message hidden"}>
-          Payment succeeded, see the result in your
-          <a href="https://dashboard.stripe.com/test/payments">
-            {" "}
-            Stripe dashboard.
-          </a>{" "}
-          Refresh the page tp pay again
-        </p>
+        <Button type="submit">Pay now</Button>
+        {error && <p className="mt-2 text-red-600">{error}</p>}
       </form>
+      {processing && (
+        <Portal>
+          <Spinner />
+        </Portal>
+      )}
     </div>
   );
 }
