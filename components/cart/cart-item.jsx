@@ -10,11 +10,20 @@ function CartItem({ product }) {
   }
 
   return (
-    <li className="grid grid-cols-12 mt-2">
-      <p className="col-span-7">{product.name}</p>
-      <p className="col-span-2">{product.brand}</p>
-      <p className="col-span-2">{product.price.toFixed(2)}$</p>
-      <button className="col-span-1 ml-auto" onClick={deleteProductHandler}>
+    <li className="grid grid-cols-12 mt-5">
+      <p className="col-span-12 sm:col-span-8 text-center sm:text-left  text-lg font-medium md:col-span-7">
+        {product.name}
+      </p>
+      <p className="col-span-12 sm:col-span-4 text-center sm:text-left md:col-span-2">
+        {product.brand}
+      </p>
+      <p className="col-span-12 sm:col-span-8 text-center sm:text-left sm:my-auto md:col-span-2">
+        {product.price.toFixed(2)}$
+      </p>
+      <button
+        className="col-span-12 sm:col-span-4 p-2 m-auto sm:m-0 sm:pl-0 md:col-span-1 "
+        onClick={deleteProductHandler}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6"
