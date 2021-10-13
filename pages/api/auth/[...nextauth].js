@@ -5,11 +5,6 @@ import axios from "axios";
 const options = {
   providers: [
     Providers.Credentials({
-      name: "Credentials",
-      credentials: {
-        email: { label: "Email", type: "text", placeholder: "test@test.com" },
-        password: { label: "Password", type: "password" },
-      },
       async authorize(credentials) {
         try {
           const { data } = await axios.post(
@@ -22,14 +17,12 @@ const options = {
           if (data) {
             return data;
           } else {
-            return null;
+            throw new Error("Something went wrong try again");
           }
         } catch (e) {
-          // console.log('caught error');
-          // const errorMessage = e.response.data.message
-          // Redirecting to the login page with error message          in the URL
-          // throw new Error(errorMessage + '&email=' + credentials.email)
-          return null;
+          const errorMessage =
+            e?.response?.data?.message[0]?.messages[0]?.message;
+          throw new Error(errorMessage);
         }
       },
     }),
