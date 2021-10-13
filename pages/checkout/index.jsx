@@ -1,22 +1,23 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { getSession } from "next-auth/client";
 import { useRouter } from "next/router";
 
 import CheckoutForm from "../../components/checkout/checkout-form";
-
 import CartContext from "../../store/cart-context";
+import Portal from "../../components/ui/portal";
+import Spinner from "../../components/ui/spinner";
 
 function CheckoutPage(props) {
   const [products, setProducts] = useState([]);
   const [orderId, setOrderId] = useState("");
   const [clientSecret, setClientSecret] = useState("");
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
   const cartCtx = useContext(CartContext);
   const cart = cartCtx.state.cart;
   const orderInfo = cartCtx.state.orderInformation;
-  console.log("CART: ", cart);
 
   useEffect(async () => {
     if (cart.length === 0) {
@@ -43,10 +44,10 @@ function CheckoutPage(props) {
         );
 
         const data = await response.json();
-        console.log("DATA: ", data);
         setProducts(data.availableProducts);
         setClientSecret(data.clientSecret);
         setOrderId(data.id);
+        setLoading(false);
       };
 
       createOrder();
@@ -58,17 +59,39 @@ function CheckoutPage(props) {
   );
 
   return (
-    <div>
-      <h1 className="mb-5">Checkout Page</h1>
+    <div className="mx-auto py-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+      <h1 className="text-3xl text-center">Checkout Page</h1>
       {products.length > 0 && (
         <div>
-          {products.map((product) => (
-            <div key={product.id} className="border">
-              <p>Name: {product.name}</p>
-              <p>Brand: {product.brand}</p>
-              <p>Price: {product.price}</p>
-            </div>
-          ))}
+          <div className="mt-5 mb-5 pb-10 border-b-2">
+            <ul className="grid grid-cols-12 border-b-2">
+              <li className="col-span-8 font-semibold hidden sm:block">
+                Product
+              </li>
+              <li className="col-span-4 md:col-span-2 font-semibold hidden sm:block">
+                Brand
+              </li>
+              <li className="col-span-2 font-semibold hidden md:block">
+                Price
+              </li>
+            </ul>
+            <ul>
+              {products.map((product) => (
+                <li key={product.id} className="grid grid-cols-12 mt-5">
+                  <p className="col-span-12 sm:col-span-8 text-center sm:text-left text-lg font-medium ">
+                    {product.name}
+                  </p>
+                  <p className="col-span-12 sm:col-span-4 md:col-span-2 text-center sm:text-left ">
+                    {product.brand}
+                  </p>
+                  <p className="col-span-12 sm:col-span-8 md:col-span-2 text-center sm:text-left sm:my-auto">
+                    {product.price.toFixed(2)}$
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           <div className="mt-5">
             <Elements stripe={promise}>
               <CheckoutForm
@@ -78,8 +101,27 @@ function CheckoutPage(props) {
                 clearCartAndOrderInfo={cartCtx.clearCartAndOrderInfo}
               />
             </Elements>
+
+            <div className="mt-7">
+              <p className="text-xl text-red-600">To process payment type:</p>
+              <p className="text-lg text-red-600">
+                Credit card number: 4242 4242 4242 4242
+              </p>
+              <p className="text-lg text-red-600">
+                MM/RR: future expiry date e.g. 01/22
+              </p>
+              <p className="text-lg text-red-600">CVC: any 3 numbers</p>
+              <p className="text-lg text-red-600">
+                Postal code: any 5 numbers
+              </p>{" "}
+            </div>
           </div>
         </div>
+      )}
+      {loading && (
+        <Portal>
+          <Spinner />
+        </Portal>
       )}
     </div>
   );
@@ -89,7 +131,6 @@ export default CheckoutPage;
 
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req });
-  console.log("Session: ", session);
 
   if (!session) {
     return {
