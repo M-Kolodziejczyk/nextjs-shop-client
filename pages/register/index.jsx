@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Head from "next/head";
 
 import Input from "../../components/ui/input";
 import Button from "../../components/ui/button";
@@ -95,6 +96,10 @@ function RegisterPage() {
 
   return (
     <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+      <Head>
+        {" "}
+        <title>Climbing Shop - Register</title>
+      </Head>
       <h1 className="text-3xl text-center">Register Page</h1>
       <form onSubmit={handleSubmit} className="mt-10 mx-auto max-w-prose">
         <Input

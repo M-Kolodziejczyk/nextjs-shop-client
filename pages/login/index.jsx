@@ -2,6 +2,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/client";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Head from "next/head";
 
 import Spinner from "../../components/ui/spinner";
 import Portal from "../../components/ui/portal";
@@ -64,6 +65,9 @@ function LoginPage() {
 
   return (
     <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+      <Head>
+        <title>Climbing Shop - Login</title>
+      </Head>
       <h1 className="text-3xl text-center">Login Page</h1>
       <form onSubmit={submitHandler} className="mt-10 mx-auto max-w-prose">
         <Input
