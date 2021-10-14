@@ -2,8 +2,10 @@ import Image from "next/image";
 import { useContext, useEffect } from "react";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
+import Head from "next/head";
 
 import { gql } from "@apollo/client";
+import Spinner from "../../../components/ui/spinner";
 import client from "../../../lib/apollo";
 import components from "../../../components/products/product-detail/description";
 import CartContext from "../../../store/cart-context";
@@ -43,52 +45,56 @@ function ProductDetailPage(props) {
   }
 
   if (!product) {
-    return <div>Loading!!!</div>;
+    return <Spinner />;
   } else {
     const imageSrc = `${process.env.NEXT_PUBLIC_API_URL}${product.image[0].url}`;
 
     return (
-      <section className="body-font overflow-hidden">
-        <div className="container px-5 py-16 mx-auto">
-          <div className="xl:w-4/5 mx-auto flex flex-wrap">
+      <section className="mx-auto py-16 lg:max-w-7xl px-2 sm:px-6 lg:px-8">
+        <Head>
+          <title>{product.name}</title>
+          <meta name="description" content={product.description}></meta>
+        </Head>
+        <div className="grid grid-cols-12">
+          <div className="col-span-12 md:col-span-4">
             <Image
               src={imageSrc}
               alt={product.name}
-              className=" w-full lg:w-1/2  lg:h-auto h-64 object-contain object-center rounded"
+              className="object-center rounded"
               width={400}
               height={400}
             />
-            <div className="lg:w-auto w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-              <div className="flex flex-col">
-                <h2 className="text-gray-900 text-2xl font-bold title-font mb-1">
-                  {product.brand}
-                </h2>
-                <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                  {product.name}
-                </h1>
-                <p className="title-font font-medium text-2xl text-gray-900">
-                  {product.price.toFixed(2)}$
-                </p>
-              </div>
-              <div className="flex mt-5">
-                <button
-                  onClick={addProducthandler}
-                  className="flex text-white bg-gray-800 border-0 py-2 px-8 focus:outline-none hover:bg-gray-700 rounded"
-                >
-                  Buy
-                </button>
-              </div>
-              {successMessage && (
-                <p className="text-green-600 transition">{successMessage}</p>
-              )}
-              {errorMessage && (
-                <p className="text-red-600 transition">{errorMessage}</p>
-              )}
+          </div>
+          <div className="col-span-12 md:col-span-8 mt-5 md:mt-0 md:pt-8 lg:pt-12 lg:mt-0">
+            <div className="flex flex-col">
+              <h2 className="text-gray-900 text-2xl font-bold title-font mb-1">
+                {product.brand}
+              </h2>
+              <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
+                {product.name}
+              </h1>
+              <p className="title-font font-medium text-2xl text-gray-900">
+                {product.price.toFixed(2)}$
+              </p>
             </div>
+            <div className="flex mt-5">
+              <button
+                onClick={addProducthandler}
+                className="flex text-white bg-gray-800 border-0 py-2 px-8 focus:outline-none hover:bg-gray-700 rounded"
+              >
+                Buy
+              </button>
+            </div>
+            {successMessage && (
+              <p className="text-green-600 transition">{successMessage}</p>
+            )}
+            {errorMessage && (
+              <p className="text-red-600 transition">{errorMessage}</p>
+            )}
           </div>
-          <div className="xl:w-4/5 mx-auto flex flex-col mt-10">
-            <MDXRemote {...props.mdxSource} components={components} />
-          </div>
+        </div>
+        <div className="lex flex-col mt-10">
+          <MDXRemote {...props.mdxSource} components={components} />
         </div>
       </section>
     );
