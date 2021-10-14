@@ -3,6 +3,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { getSession } from "next-auth/client";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 import CheckoutForm from "../../components/checkout/checkout-form";
 import CartContext from "../../store/cart-context";
@@ -60,6 +61,9 @@ function CheckoutPage(props) {
 
   return (
     <div className="mx-auto py-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+      <Head>
+        <title>Climbing Shop - Checkout</title>
+      </Head>
       <h1 className="text-3xl text-center">Checkout Page</h1>
       {products.length > 0 && (
         <div>
