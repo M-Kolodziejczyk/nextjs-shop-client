@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 import CartContext from "../../store/cart-context";
 import CartList from "../../components/cart/cart-list";
@@ -16,6 +17,9 @@ function CartPage() {
 
   return (
     <div className="mx-auto py-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+      <Head>
+        <title>Climbing Shop - Cart</title>
+      </Head>
       {cart.length === 0 && <h1 className="text-3xl">Your cart is empty</h1>}
       {cart && cart.length > 0 && (
         <>
