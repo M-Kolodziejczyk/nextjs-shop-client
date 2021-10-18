@@ -65,7 +65,7 @@ function ProductDetailPage(props) {
               height={400}
             />
           </div>
-          <div className="col-span-12 md:col-span-8 mt-5 md:mt-0 md:pt-8 lg:pt-12 lg:mt-0">
+          <div className="col-span-12 md:col-span-8 mt-5 md:mt-0 md:pt-8 md:ml-10 lg:pt-12 lg:mt-0">
             <div className="flex flex-col">
               <h2 className="text-gray-900 text-2xl font-bold title-font mb-1">
                 {product.brand}
