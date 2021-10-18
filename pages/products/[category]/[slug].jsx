@@ -149,6 +149,7 @@ export async function getStaticProps(context) {
     props: {
       product: null,
     },
+    revalidate: 600,
   };
 }
 
