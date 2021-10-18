@@ -53,7 +53,9 @@ function RegisterPage() {
     const errorResponse = validateForm(formData);
     setError(errorResponse);
 
-    if (Object.keys(errorResponse).length === 0 || true) {
+    console.log("ERROR: ", errorResponse);
+
+    if (Object.keys(errorResponse).length === 0) {
       try {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/local/register`,
@@ -75,12 +77,11 @@ function RegisterPage() {
           setFormData(INITIAL_FORM_DATA);
           setSuccessMessage("Account created successfuly");
         }
-        setLoading(false);
       } catch (error) {
         setErrorMessage("Something went wrong, try again");
-        setLoading(false);
       }
     }
+    setLoading(false);
   }
 
   useEffect(() => {
