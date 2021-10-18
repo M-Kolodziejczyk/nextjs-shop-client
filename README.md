@@ -1,11 +1,11 @@
 # Climbing Shop
 
-## Live Demo /https://nextjs-shop-client.vercel.app/
+## Live Demo https://nextjs-shop-client.vercel.app/
 
 ## Test User:
 
-email:
-password:
+email: zsw11607@zwoho.com
+password: test1234
 
 ## Features:
 
