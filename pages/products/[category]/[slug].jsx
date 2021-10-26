@@ -47,7 +47,10 @@ function ProductDetailPage(props) {
   if (!product) {
     return <Spinner />;
   } else {
-    const imageSrc = `${process.env.NEXT_PUBLIC_API_URL}${product.image[0].url}`;
+    let imageSrc = "";
+    if (product.image.length > 0) {
+      imageSrc = `${process.env.NEXT_PUBLIC_API_URL}${product.image[0].url}`;
+    }
 
     return (
       <section className="mx-auto py-16 lg:max-w-7xl px-2 sm:px-6 lg:px-8">
