@@ -2,17 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 
 function ProductItem(props) {
-  const { name, brand, image, price, slug, collectionName } = props.product;
+  const { name, brand, price, slug, collectionName, img } = props.product;
 
   const pathName = `/products/${collectionName}/${slug}`;
-  const imageSrc = `${process.env.NEXT_PUBLIC_API_URL}${image[0].url}`;
 
   return (
     <Link href={pathName}>
       <a className="group">
         <div className="w-full flex justify-center">
           <Image
-            src={imageSrc}
+            src={img}
             alt={name}
             className="flex w-full h-full bg-auto bg-center transform transition-all group-hover:scale-110 "
             width={300}
