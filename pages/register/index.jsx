@@ -53,8 +53,6 @@ function RegisterPage() {
     const errorResponse = validateForm(formData);
     setError(errorResponse);
 
-    console.log("ERROR: ", errorResponse);
-
     if (Object.keys(errorResponse).length === 0) {
       try {
         const res = await fetch(
