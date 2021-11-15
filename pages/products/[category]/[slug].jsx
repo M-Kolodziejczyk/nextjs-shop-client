@@ -47,11 +47,6 @@ function ProductDetailPage(props) {
   if (!product) {
     return <Spinner />;
   } else {
-    let imageSrc = "";
-    if (product.image.length > 0) {
-      imageSrc = `${process.env.NEXT_PUBLIC_API_URL}${product.image[0].url}`;
-    }
-
     return (
       <section className="mx-auto py-16 lg:max-w-7xl px-2 sm:px-6 lg:px-8">
         <Head>
@@ -61,7 +56,7 @@ function ProductDetailPage(props) {
         <div className="grid grid-cols-12">
           <div className="col-span-12 md:col-span-4">
             <Image
-              src={imageSrc}
+              src={product.img}
               alt={product.name}
               className="object-center rounded"
               width={400}
@@ -119,9 +114,7 @@ export async function getStaticProps(context) {
         price
         inventory_available
         description
-        image {
-          url
-        }
+        img
       }
     }
   `;
