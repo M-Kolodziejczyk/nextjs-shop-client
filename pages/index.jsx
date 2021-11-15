@@ -25,9 +25,7 @@ export async function getStaticProps() {
           inventory_available
           description
           collectionName
-          image {
-            url
-          }
+          img
         }
         helmets {
           _id
@@ -38,9 +36,7 @@ export async function getStaticProps() {
           inventory_available
           description
           collectionName
-          image {
-            url
-          }
+          img
         }
         belay_devices {
           _id
@@ -51,9 +47,7 @@ export async function getStaticProps() {
           inventory_available
           description
           collectionName
-          image {
-            url
-          }
+          img
         }
         harnesses {
           _id
@@ -64,9 +58,7 @@ export async function getStaticProps() {
           inventory_available
           description
           collectionName
-          image {
-            url
-          }
+          img
         }
         ropes {
           _id
@@ -77,9 +69,7 @@ export async function getStaticProps() {
           inventory_available
           description
           collectionName
-          image {
-            url
-          }
+          img
         }
       }
     }
