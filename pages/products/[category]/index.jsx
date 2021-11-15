@@ -47,9 +47,7 @@ export async function getStaticProps(context) {
       inventory_available
       description
       collectionName
-      image {
-        url
-      }
+      img     
     }
   }
 `;
